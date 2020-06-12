@@ -8,7 +8,7 @@ function start() {
   createFireSource()
   renderFire()
 
-  setInterval(calculateFirePropagation, 50)
+  calculateFirePropagation()
 }
 
 function createFireDataStructure() {
@@ -29,6 +29,8 @@ function calculateFirePropagation() {
   }
 
   renderFire()
+
+  requestAnimationFrame(calculateFirePropagation)
 }
 
 function updateFireIntensityPerPixel(currentPixelIndex) {
@@ -43,7 +45,7 @@ function updateFireIntensityPerPixel(currentPixelIndex) {
   const newFireIntensity =
     bellowPixelFireIntensity - decay >= 0 ? bellowPixelFireIntensity - decay : 0
 
-  firePixelsArray[currentPixelIndex] = newFireIntensity
+  firePixelsArray[currentPixelIndex - decay] = newFireIntensity
 }
 
 function renderFire() {
